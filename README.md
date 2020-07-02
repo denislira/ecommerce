@@ -1,8 +1,5 @@
-<<<<<<< HEAD
+
 # Projeto E-commerce EM DESENVOLVIMENTO, não ESTÁ COMPLETO
-=======
-# Projeto E-commerce NÃO FINALIZADO, Não baixe
->>>>>>> remotes/origin/master
 
 Projeto desenvolvido do zero no [Curso de PHP 7](https://www.udemy.com/curso-completo-de-php-7/) disponível na plataforma da Udemy e no site do [HTML5dev.com.br](https://www.html5dev.com.br/curso/curso-completo-de-php-7).
 
