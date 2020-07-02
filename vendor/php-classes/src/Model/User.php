@@ -7,6 +7,7 @@ use \PhpClass\Model;
 
 class User extends Model{
 
+ const SESSION = "User";
 
 	public static function login($login, $password){
 
@@ -27,12 +28,34 @@ class User extends Model{
 		{
 			$user = new User();
 
-			$user->setiduser($data['iduser']);
+			$user->setData($data);
+
+			$_SESSION[User::SESSION] = $user->getValues();
+
+			return $user;
 
 		}else{
 			throw new \Exception("Senha Incorreta", 1);
 		}
 	}
+
+	public static function verifylogin($inadmin = true)
+	{
+		if(!isset($_SESSION[User::SESSION])
+			|| !$_SESSION[User::SESSION]
+			|| !(int)$_SESSION[User::SESSION]['iduser'] > 0
+			|| (bool)$_SESSION[User::SESSION]['inadmin'] !== $inadmin
+		){
+			header("Location: admin/login");
+			exit;
+		}
+	}
+
+	public static function logout()
+	{
+		$_SESSION[User::SESSION] = NULL;
+	}
+
 }
 
 ?>

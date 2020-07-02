@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 require_once("vendor/autoload.php");
 
 use \Slim\Slim;
@@ -12,12 +12,13 @@ $app = new \Slim\Slim();
 $app->config('debug', true);
 
 $app->get('/', function() {
-     $page = Page();
+     $page = new Page();
      $page->setTpl("index");
 });
 
 $app->get('/admin', function() {
-     $page = new PhpClass\PageAdmin();
+	User::verifylogin();
+     $page = new PageAdmin();
      $page->setTpl("index");
 });
 
@@ -30,9 +31,17 @@ $app->get('/admin/login', function() {
 });
 
 $app->post('/admin/login', function() {
-	User::login($_POST['login'], $_POST['password']);
-	header("Location: /admin");
-   
+	User::login($_POST["login"], $_POST["password"]);
+	header("Location: ../admin");
+   exit;
+});
+
+$app->get('/admin/logout', function() {
+     
+     User::logout();
+
+     header("Location: /login");
+
 });
 
 $app->run();
