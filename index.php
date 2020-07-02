@@ -24,14 +24,14 @@ $app->get('/admin', function() {
 $app->get('/admin/login', function() {
      $page = new PageAdmin([
      	"header"=>false,
-     	"footer"=>fals
+     	"footer"=>false
      ]);
      $page->setTpl("login");
 });
 
 $app->post('/admin/login', function() {
 	User::login($_POST['login'], $_POST['password']);
-	header("Location: /admin")
+	header("Location: /admin");
    
 });
 

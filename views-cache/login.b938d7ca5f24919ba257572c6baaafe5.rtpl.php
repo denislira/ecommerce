@@ -33,7 +33,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Entre com seus dados para Acessar</p>
 
-    <form action="../../index2.html" method="post">
+    <form action="/admin/login" method="post">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Login" name="login">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>

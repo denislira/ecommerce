@@ -27,6 +27,8 @@ class User extends Model{
 		{
 			$user = new User();
 
+			$user->setiduser($data['iduser']);
+
 		}else{
 			throw new \Exception("Senha Incorreta", 1);
 		}
