@@ -16,8 +16,13 @@ $app->get('/admin', function() {
      $page->setTpl("index");
 });
 
-$app->get('/oi', function(){
-	echo "OI";
+$app->get('/admin/login', function() {
+     $page = new PhpClass\PageAdmin([
+     	"header"=>false,
+     	"footer"=>false
+
+     ]);
+     $page->setTpl("login");
 });
 
 
