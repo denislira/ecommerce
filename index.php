@@ -2,12 +2,17 @@
 
 require_once("vendor/autoload.php");
 
+use \Slim\Slim;
+use \PhpClass\Page;
+use \PhpClass\PageAdmin;
+use \PhpClass\Model\User;
+
 $app = new \Slim\Slim();
 
 $app->config('debug', true);
 
 $app->get('/', function() {
-     $page = new PhpClass\Page();
+     $page = Page();
      $page->setTpl("index");
 });
 
@@ -17,14 +22,18 @@ $app->get('/admin', function() {
 });
 
 $app->get('/admin/login', function() {
-     $page = new PhpClass\PageAdmin([
+     $page = new PageAdmin([
      	"header"=>false,
-     	"footer"=>false
-
+     	"footer"=>fals
      ]);
      $page->setTpl("login");
 });
 
+$app->post('/admin/login', function() {
+	User::login($_POST['login'], $_POST['password']);
+	header("Location: /admin")
+   
+});
 
 $app->run();
 
