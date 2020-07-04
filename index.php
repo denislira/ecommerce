@@ -32,7 +32,7 @@ $app->get('/admin/login', function() {
 
 $app->post('/admin/login', function() {
 	User::login($_POST["login"], $_POST["password"]);
-	header("Location: ../admin");
+	header("Location: /admin");
    exit;
 });
 
