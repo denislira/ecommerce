@@ -12,14 +12,11 @@ class User extends Model{
 	public static function login($login, $password){
 
 		$sql = new Sql();
-		$result = $sql->select("SELECT * FROM tb_users WHERE deslogin = :LOGIN", array(
-            ":LOGIN"=>$login
-		));
+		$result = $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b ON a.idperson = b.idperson WHERE a.deslogin = :LOGIN", array(":LOGIN"=>$login));
 
 		if (count($result)===0)
 		{
 			throw new \Exception("Usuário não existe", 1);
-			
 		}
 
 		$data = $result[0];
@@ -78,20 +75,24 @@ class User extends Model{
  
  	}
 
- 	public function save(){
+ 	public function save()
+	{
+		$sql = new Sql();
+		
+		$results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
+			":desperson"=>$this->getdesperson(),
+			":deslogin"=>$this->getdeslogin(),
+			":despassword"=>$this->getdespassword(),
+			":desemail"=>$this->getdesemail(),
+			":nrphone"=>$this->getnrphone(),
+			":inadmin"=>$this->getinadmin()
 
- 		$sql = new Sql();
- 		$sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, : inadmin)", array(
- 			":desperson"=>$this->getdesperson(),
- 			":deslogin"=>$this->getdeslogin(),
- 			":despassword"=>$this->getdespassword(),
- 			":desemail"=>$this->getdesemail(),
- 			":nrphone"=>$this->getnrphone(),
- 			":inadmin"=>$this->getinadmin(),
- 		));
+		));
 
- 		$this->setData($results[0]);
- 	}
+		$this->setData($results[0]);
+
+
+	}
 
 }
 
